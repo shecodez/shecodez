@@ -84,15 +84,15 @@ const lanes = ref([
   },
 ]);
 
-function startDrag(evt, item) {
-  evt.dataTransfer.dropEffect = 'move';
-  evt.dataTransfer.effectAllowed = 'move';
-  evt.dataTransfer.setData('itemID', item.id);
+function startDrag(evt: DragEvent, item: any) {
+  evt.dataTransfer!.dropEffect = 'move';
+  evt.dataTransfer!.effectAllowed = 'move';
+  evt.dataTransfer?.setData('itemID', item.id);
 }
 
-function onDrop(evt, list) {
-  const itemID = evt.dataTransfer.getData('itemID');
-  const item = items.value.find((item) => item.id == itemID);
+function onDrop(evt: DragEvent, list: any) {
+  const itemID = evt.dataTransfer?.getData('itemID');
+  const item = items.value.find((item) => item.id.toString() == itemID);
   if (item) item.list = list;
 }
 </script>

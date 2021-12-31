@@ -159,16 +159,6 @@
             an email to
             <a href="mailto:me@shecodez.com">me@shecodez.com</a>. 🥰
           </p>
-          <!-- <div v-if="state.sent" class="success-alert p-4 flex items-center my-4">✔️ Message sent. Thanks!</div>
-          <form v-else @submit.prevent="sendEmail" class="flex flex-col gap-3 mt-6">
-            <div class="flex gap-3">
-              <input type="text" v-model="state.name" placeholder="Name" />
-              <input type="email" v-model="state.email" placeholder="E-mail" required />
-            </div>
-            <input type="text" v-model="state.subject" placeholder="Subject" />
-            <textarea v-model="state.message" placeholder="Message" rows="4" required />
-            <button class="primary-button">Send Message</button>
-          </form> -->
           <ContactForm />
         </div>
       </section>
