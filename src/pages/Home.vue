@@ -5,9 +5,7 @@
     <main class="relative w-full md:ml-auto md:w-11/12">
       <div class="bkmark fixed center top-0 right-0 z-50">
         <div class="triangle relative w-25 h-25">
-          <a href="/src/assets/downloads/resume.pdf" class="absolute transform rotate-45 -top-5 -right-11 text-center">
-            Résumé
-          </a>
+          <a href="/downloads/resume.pdf" class="absolute transform rotate-45 -top-5 -right-11 text-center">Résumé</a>
         </div>
       </div>
 

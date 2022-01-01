@@ -31,12 +31,12 @@ import YouTubeIcon from './icons/YouTubeIcon.vue';
 const player = ref();
 const playing = ref(false);
 
-function togglePlaying() {
+async function togglePlaying() {
   if (playing.value) {
-    player.value.pause();
+    await player.value.pause();
     playing.value = false;
   } else {
-    player.value.play();
+    await player.value.play();
     playing.value = true;
   }
 }
