@@ -17,7 +17,7 @@
     </button>
 
     <audio ref="player">
-      <source src="/src/assets/audio/TheBigO-OST.mp3" type="audio/mpeg" />
+      <source src="/audio/TheBigO-OST.mp3" type="audio/mpeg" />
     </audio>
   </div>
 </template>

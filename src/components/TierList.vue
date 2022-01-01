@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-const baseSrc = '/src/assets/images/';
+const baseSrc = '/images/';
 
 const items = ref([
   { id: 1, list: 'S', icon: `${baseSrc}LogosVue.svg` },
@@ -55,6 +55,7 @@ const items = ref([
   { id: 26, list: '💩', icon: `${baseSrc}BrandicoWordpress.svg` },
   { id: 27, list: '💩', icon: `${baseSrc}SimpleIconsBlazor.svg` },
 ]);
+
 const lanes = ref([
   {
     id: 'S',

@@ -124,8 +124,8 @@
                 target="_blank"
                 style="color: inherit"
               >
-                <img src="/src/assets/images/LogosTypescriptIcon.svg" alt="TypeScript logo" class="inline" /> used to be
-                on my <span class="not-italic">💩</span> list.
+                <img src="/images/LogosTypescriptIcon.svg" alt="TypeScript logo" class="inline" /> used to be on my
+                <span class="not-italic">💩</span> list.
               </a>
             </small>
           </p>
