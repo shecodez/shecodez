@@ -5,7 +5,9 @@
     <main class="relative w-full md:ml-auto md:w-11/12">
       <div class="bkmark fixed center top-0 right-0 z-50">
         <div class="triangle relative w-25 h-25">
-          <a href="/downloads/resume.pdf" class="absolute transform rotate-45 -top-5 -right-11 text-center">Résumé</a>
+          <a href="/downloads/ResumeNJN.pdf" class="absolute transform rotate-45 -top-5 -right-11 text-center"
+            >Résumé</a
+          >
         </div>
       </div>
 
@@ -18,7 +20,7 @@
         <div class="intro text flex flex-col gap-6">
           <h1>
             Hello, <span class="emoji">🌎</span>!<br />
-            I'm N<span class="eye l-eye">i</span><span class="eye r-eye">i</span>co,<br />
+            I'm Nicole,<br />
             <span class="tracking-wide">A <span class="emoji">👩🏽‍💻</span> dev.</span>
           </h1>
           <span class="hidden">🎉 congratz! you survived 2020 🧻 & 2021 🦠</span>
@@ -33,7 +35,7 @@
           <div class="text">
             <h2 class="primary-h2">Portfolio</h2>
             <p>
-              Hi there! I'm Niico and I'm a web developer currently
+              Hi there! I'm Nicole and I'm a web developer currently
               <del>stuck</del> based in Georgia, 🍑 state USA.<br />
               I 💗 moonlight, sushi, building UI/UX to help people get things done, and
               <a href="https://www.imdb.com/title/tt0280240/" target="_blank">Big O</a> ...umm
