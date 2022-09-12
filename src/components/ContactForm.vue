@@ -41,7 +41,7 @@ function sendEmail() {
       import.meta.env.VITE_EJS_USER_ID as string
     );
   } catch (error: any) {
-    console.log(error);
+    // console.log(error);
     state.error = error;
   } finally {
     state.sent = true;
