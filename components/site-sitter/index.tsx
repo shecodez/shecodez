@@ -11,14 +11,14 @@ import { SiteSitterMessageForm } from './message-form'
 import { SiteSitterHomeTab } from './home-tab'
 import type { ChatMessage, FAQ } from './types'
 
-const SITESITTER_NAME = 'Daqi'
+const SITESITTER_NAME = 'SHi'
 const WEBSITE_NAME = 'shecodez.com'
 
 const FAQS: FAQ[] = [
   {
     question: 'Is Nicole open to work?',
     answer:
-      "Yep — Frontend Design Engineer roles. Say hi through the contact links or send a message. I'll make sure she sees it. (•̀ᴗ•́ )و",
+      "Yep! Say hi through the contact links or send a message. I'll make sure she sees it. (•̀ᴗ•́ )و",
   },
   {
     question: 'WTF is a Site Sitter?',
