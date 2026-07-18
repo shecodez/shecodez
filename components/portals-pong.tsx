@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'motion/react'
 import { X } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const SEQUENCE = 'pong'
 const ORANGE = '#ff5d00'
@@ -442,7 +442,7 @@ function maybeTeleportPortals(
   nextTeleportAt.value = now + randomBetween(12, 22) * 1000
 }
 
-function PortalsPongGame({ onClose }: { onClose: () => void }) {
+export function PortalsPongGame({ onClose }: { onClose: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const phaseRef = useRef<GamePhase>('menu')
   const winnerRef = useRef<Winner>(null)
@@ -614,30 +614,14 @@ function PortalsPongGame({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function PortalsPong() {
-  const [open, setOpen] = useState(false)
+export const PORTALS_PONG_SEQUENCE = SEQUENCE
 
-  useEffect(() => {
-    let buffer = ''
+interface PortalsPongModalProps {
+  open: boolean
+  onClose: () => void
+}
 
-    function onKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement
-      if (target && ['INPUT', 'TEXTAREA'].includes(target.tagName)) return
-
-      if (e.key === 'Escape') {
-        setOpen(false)
-        return
-      }
-
-      if (e.key.length !== 1) return
-      buffer = (buffer + e.key.toLowerCase()).slice(-SEQUENCE.length)
-      if (buffer === SEQUENCE) setOpen(true)
-    }
-
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
-
+export function PortalsPongModal({ open, onClose }: PortalsPongModalProps) {
   useEffect(() => {
     if (!open) return
     const prev = document.body.style.overflow
@@ -655,7 +639,7 @@ export function PortalsPong() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[90] flex items-center justify-center bg-foreground/50 p-4 backdrop-blur-md"
-          onClick={() => setOpen(false)}
+          onClick={onClose}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 12 }}
@@ -664,7 +648,7 @@ export function PortalsPong() {
             transition={{ type: 'spring', stiffness: 260, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <PortalsPongGame onClose={() => setOpen(false)} />
+            <PortalsPongGame onClose={onClose} />
           </motion.div>
         </motion.div>
       )}

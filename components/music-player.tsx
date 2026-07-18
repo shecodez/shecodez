@@ -4,13 +4,8 @@ import { AnimatePresence, motion } from 'motion/react'
 import { ChevronDown, Music, Pause, Play, SkipBack, SkipForward } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-
-const TRACK = {
-  title: 'BIG-O!',
-  album: 'The Big O — Original Soundtrack',
-  duration: 214, // seconds
-  cover: '/album-big-o.png',
-}
+import { useNowPlaying } from '@/components/now-playing-provider'
+import { getTrackAlbum, getTrackDuration } from '@/lib/anime-tracks'
 
 function format(s: number) {
   const m = Math.floor(s / 60)
@@ -18,38 +13,125 @@ function format(s: number) {
   return `${m}:${sec.toString().padStart(2, '0')}`
 }
 
-// static bar heights for a stable waveform
 const BARS = [0.3, 0.6, 0.9, 0.5, 0.75, 1, 0.4, 0.65, 0.85, 0.35, 0.7, 0.95, 0.5, 0.8, 0.45, 0.6, 0.9, 0.55, 0.7, 0.4]
 
+function AlbumArt({ cover, label, size }: { cover?: string; label: string; size: 'sm' | 'lg' }) {
+  const iconSize = size === 'lg' ? 'size-10' : 'size-4'
+  const containerClass =
+    size === 'lg'
+      ? 'relative size-36 overflow-hidden rounded-full border border-border shadow-inner'
+      : 'relative size-9 overflow-hidden rounded-full border border-border'
+
+  if (!cover) {
+    return (
+      <div className={`${containerClass} flex items-center justify-center bg-muted`}>
+        <Music className={`${iconSize} text-muted-foreground`} aria-hidden />
+      </div>
+    )
+  }
+
+  return (
+    <div className={containerClass}>
+      <Image src={cover} alt={`${label} album art`} fill className="object-cover" sizes={size === 'lg' ? '144px' : '36px'} />
+      {size === 'lg' && (
+        <span className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-background bg-card" />
+      )}
+    </div>
+  )
+}
+
 export function MusicPlayer() {
+  const { track } = useNowPlaying()
   const [expanded, setExpanded] = useState(false)
   const [playing, setPlaying] = useState(false)
   const [time, setTime] = useState(0)
   const raf = useRef<number | null>(null)
   const last = useRef<number>(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  const duration = track ? getTrackDuration(track) : 0
+  const album = track ? getTrackAlbum(track) : ''
+  const hasAudio = Boolean(track?.src)
 
   useEffect(() => {
-    if (!playing) {
+    if (!track) return
+    setTime(0)
+    setPlaying(true)
+    setExpanded(true)
+  }, [track?.id])
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!track?.src || !audio) return
+
+    audio.src = track.src
+    audio.load()
+    setTime(0)
+
+    if (playing) {
+      void audio.play().catch(() => setPlaying(false))
+    }
+  }, [track?.src, track?.id])
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!hasAudio || !audio) return
+
+    if (playing) {
+      void audio.play().catch(() => setPlaying(false))
+    } else {
+      audio.pause()
+    }
+  }, [playing, hasAudio])
+
+  useEffect(() => {
+    if (!playing || hasAudio || !track) {
       if (raf.current) cancelAnimationFrame(raf.current)
       return
     }
+
     last.current = performance.now()
     const tick = (now: number) => {
       const delta = (now - last.current) / 1000
       last.current = now
-      setTime((t) => (t + delta >= TRACK.duration ? 0 : t + delta))
+      setTime((t) => (t + delta >= duration ? 0 : t + delta))
       raf.current = requestAnimationFrame(tick)
     }
     raf.current = requestAnimationFrame(tick)
     return () => {
       if (raf.current) cancelAnimationFrame(raf.current)
     }
-  }, [playing])
+  }, [playing, hasAudio, duration, track])
 
-  const progress = (time / TRACK.duration) * 100
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!hasAudio || !audio) return
+
+    function onTimeUpdate() {
+      setTime(audio!.currentTime)
+    }
+
+    function onEnded() {
+      setPlaying(false)
+      setTime(0)
+    }
+
+    audio.addEventListener('timeupdate', onTimeUpdate)
+    audio.addEventListener('ended', onEnded)
+    return () => {
+      audio.removeEventListener('timeupdate', onTimeUpdate)
+      audio.removeEventListener('ended', onEnded)
+    }
+  }, [hasAudio, track?.id])
+
+  if (!track) return null
+
+  const progress = duration > 0 ? (time / duration) * 100 : 0
 
   return (
     <div className="fixed bottom-4 left-4 z-40 sm:bottom-6 sm:left-6">
+      {track.src && <audio ref={audioRef} preload="metadata" />}
+
       <AnimatePresence mode="popLayout">
         {expanded ? (
           <motion.div
@@ -84,36 +166,24 @@ export function MusicPlayer() {
               <motion.div
                 animate={{ rotate: playing ? 360 : 0 }}
                 transition={{ duration: 8, repeat: playing ? Infinity : 0, ease: 'linear' }}
-                className="relative size-36 overflow-hidden rounded-full border border-border shadow-inner"
               >
-                <Image
-                  src={TRACK.cover || '/placeholder.svg'}
-                  alt={`${TRACK.album} album art`}
-                  fill
-                  className="object-cover"
-                  sizes="144px"
-                />
-                <span className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-background bg-card" />
+                <AlbumArt cover={track.cover} label={album} size="lg" />
               </motion.div>
             </div>
 
             <div className="mt-4 text-center">
-              <p className="font-serif text-xl leading-tight tracking-tight">{TRACK.title}</p>
-              <p className="mt-0.5 truncate text-xs text-muted-foreground">{TRACK.album}</p>
+              <p className="font-serif text-xl leading-tight tracking-tight">{track.note}</p>
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">{track.artist}</p>
+              <p className="mt-0.5 truncate text-[11px] text-muted-foreground/80">{album}</p>
             </div>
 
-            {/* waveform */}
             <div className="mt-4 flex h-10 items-center justify-center gap-0.5">
               {BARS.map((h, i) => {
                 const activeBar = (i / BARS.length) * 100 <= progress
                 return (
                   <motion.span
                     key={i}
-                    animate={
-                      playing
-                        ? { scaleY: [h, h * 0.4 + 0.2, h] }
-                        : { scaleY: h }
-                    }
+                    animate={playing ? { scaleY: [h, h * 0.4 + 0.2, h] } : { scaleY: h }}
                     transition={
                       playing
                         ? { duration: 0.9 + (i % 5) * 0.12, repeat: Infinity, ease: 'easeInOut' }
@@ -128,7 +198,7 @@ export function MusicPlayer() {
 
             <div className="mt-2 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
               <span>{format(time)}</span>
-              <span>{format(TRACK.duration)}</span>
+              <span>{format(duration)}</span>
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-5">
@@ -174,22 +244,15 @@ export function MusicPlayer() {
             <motion.span
               animate={{ rotate: playing ? 360 : 0 }}
               transition={{ duration: 8, repeat: playing ? Infinity : 0, ease: 'linear' }}
-              className="relative size-9 overflow-hidden rounded-full border border-border"
             >
-              <Image
-                src={TRACK.cover || '/placeholder.svg'}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="36px"
-              />
+              <AlbumArt cover={track.cover} label={album} size="sm" />
             </motion.span>
             <span className="flex flex-col items-start leading-tight">
               <span className="flex items-center gap-1 text-[10px] tracking-widest text-muted-foreground uppercase">
                 <Music className="size-2.5 text-primary" />
                 Now Playing
               </span>
-              <span className="text-sm font-medium">{TRACK.title}</span>
+              <span className="max-w-32 truncate text-sm font-medium">{track.note}</span>
             </span>
             <span
               onClick={(e) => {

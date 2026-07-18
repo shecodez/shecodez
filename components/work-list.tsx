@@ -29,7 +29,7 @@ function WorkCard({ work }: { work: Work }) {
     <>
       <div className="relative aspect-[16/11] overflow-hidden rounded-xl border border-border bg-card">
         <Image
-          src={work.image || '/placeholder.svg'}
+          src={work.image}
           alt={`${work.name} preview`}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"

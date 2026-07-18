@@ -1,37 +1,65 @@
 'use client'
 
 import { AnimatePresence, motion } from 'motion/react'
-import { X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Play, X } from 'lucide-react'
+import { useEffect } from 'react'
+import { useNowPlaying } from '@/components/now-playing-provider'
+import { ANIME_TRACKS, type AnimeTrack } from '@/lib/anime-tracks'
 
-const SEQUENCE = 'bigo'
+export const EASTER_EGG_SEQUENCE = 'anime'
 
-const FAVES = [
-  { title: 'The Big O', note: 'Cast in the name of God, ye not guilty.' },
-  { title: 'Cowboy Bebop', note: 'See you space cowboy.' },
-  { title: 'Ghost in the Shell', note: 'Craft as philosophy.' },
-  { title: 'Neon Genesis Evangelion', note: 'Congratulations.' },
-]
+export const FAVES = ANIME_TRACKS
 
-export function EasterEgg() {
-  const [open, setOpen] = useState(false)
+interface EasterEggModalProps {
+  open: boolean
+  onClose: () => void
+}
+
+function TrackRow({ track, index, onSelect }: { track: AnimeTrack; index: number; onSelect: () => void }) {
+  return (
+    <motion.li
+      initial={{ opacity: 0, x: -8 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.05 * index }}
+    >
+      <button
+        type="button"
+        onClick={onSelect}
+        className="group flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-background px-4 py-3 text-left transition-colors hover:border-primary/40 hover:bg-accent"
+      >
+        <div className="min-w-0">
+          <p className="text-sm font-medium">{track.title}</p>
+          <p className="mt-0.5 truncate text-xs text-muted-foreground">{track.artist}</p>
+        </div>
+        <span className="flex shrink-0 items-center gap-2">
+          <span className="text-right text-xs font-medium text-primary">{track.note}</span>
+          <span className="flex size-7 items-center justify-center rounded-full bg-primary/10 text-primary opacity-0 transition-opacity group-hover:opacity-100">
+            <Play className="size-3.5 translate-x-px" fill="currentColor" aria-hidden />
+          </span>
+        </span>
+      </button>
+    </motion.li>
+  )
+}
+
+export function EasterEggModal({ open, onClose }: EasterEggModalProps) {
+  const { selectTrack } = useNowPlaying()
 
   useEffect(() => {
-    let buffer = ''
+    if (!open) return
+
     function onKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement
-      if (target && ['INPUT', 'TEXTAREA'].includes(target.tagName)) return
-      if (e.key === 'Escape') {
-        setOpen(false)
-        return
-      }
-      if (e.key.length !== 1) return
-      buffer = (buffer + e.key.toLowerCase()).slice(-SEQUENCE.length)
-      if (buffer === SEQUENCE) setOpen(true)
+      if (e.key === 'Escape') onClose()
     }
+
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  }, [open, onClose])
+
+  function handleSelectTrack(track: AnimeTrack) {
+    selectTrack(track)
+    onClose()
+  }
 
   return (
     <AnimatePresence>
@@ -40,7 +68,7 @@ export function EasterEgg() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => setOpen(false)}
+          onClick={onClose}
           className="fixed inset-0 z-[80] flex items-center justify-center bg-foreground/40 p-4 backdrop-blur-sm"
         >
           <motion.div
@@ -51,18 +79,18 @@ export function EasterEgg() {
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
-            aria-label="Favorite anime"
+            aria-label="Favorite anime songs"
             className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-2xl"
           >
             <div className="flex items-start justify-between">
               <div>
                 <p className="font-mono text-[11px] tracking-widest text-primary uppercase">
-                  Easter Egg
+                  GOAT anime songs
                 </p>
-                <h3 className="mt-1 font-serif text-2xl tracking-tight">On heavy rotation</h3>
+                <h3 className="mt-1 font-serif text-2xl tracking-tight">On heavy rotation ヾ(´･ ･`｡)ﾉ♪</h3>
               </div>
               <button
-                onClick={() => setOpen(false)}
+                onClick={onClose}
                 aria-label="Close"
                 className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
@@ -70,21 +98,17 @@ export function EasterEgg() {
               </button>
             </div>
             <ul className="mt-5 space-y-2">
-              {FAVES.map((f, i) => (
-                <motion.li
-                  key={f.title}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                  className="flex items-center justify-between rounded-xl border border-border bg-background px-4 py-3"
-                >
-                  <span className="text-sm font-medium">{f.title}</span>
-                  <span className="text-xs text-muted-foreground">{f.note}</span>
-                </motion.li>
+              {ANIME_TRACKS.map((track, i) => (
+                <TrackRow
+                  key={track.id}
+                  track={track}
+                  index={i}
+                  onSelect={() => handleSelectTrack(track)}
+                />
               ))}
             </ul>
             <p className="mt-4 text-center text-xs text-muted-foreground">
-              You found the hidden panel. Details matter.
+              Pick a track to start the floating player.
             </p>
           </motion.div>
         </motion.div>

@@ -69,7 +69,7 @@ export function CaseStudyView({ work, next }: { work: Work; next: Work }) {
       <Reveal className="mt-10">
         <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-35px_rgba(0,0,0,0.4)]">
           <Image
-            src={work.image || '/placeholder.svg'}
+            src={work.image}
             alt={`${work.name} cover`}
             fill
             sizes="(min-width: 768px) 768px, 100vw"
@@ -124,7 +124,7 @@ export function CaseStudyView({ work, next }: { work: Work; next: Work }) {
               <figure>
                 <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-card">
                   <Image
-                    src={g.src || '/placeholder.svg'}
+                    src={g.src}
                     alt={g.caption}
                     fill
                     sizes="(min-width: 768px) 768px, 100vw"

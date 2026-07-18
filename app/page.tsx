@@ -1,12 +1,10 @@
 import { About } from '@/components/about'
 import { ComponentLibrary } from '@/components/component-library'
 import { CurrentlyInto } from '@/components/currently-into'
-import { EasterEgg } from '@/components/easter-egg'
-import { PortalsPong } from '@/components/portals-pong'
 import { Experience } from '@/components/experience'
 import { FeaturedProjects } from '@/components/featured-projects'
 import { Hero } from '@/components/hero'
-import { MusicPlayer } from '@/components/music-player'
+import { PageOverlays } from '@/components/page-overlays'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteNav } from '@/components/site-nav'
 import { Skills } from '@/components/skills'
@@ -23,9 +21,7 @@ export default function Page() {
       <Experience />
       <CurrentlyInto />
       <SiteFooter />
-      <MusicPlayer />
-      <EasterEgg />
-      <PortalsPong />
+      <PageOverlays />
     </main>
   )
 }

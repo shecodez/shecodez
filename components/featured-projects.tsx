@@ -22,7 +22,7 @@ function ProjectCard({ project, index }: { project: FeaturedProject; index: numb
           }`}
         >
           <Image
-            src={project.image || '/placeholder.svg'}
+            src={project.image}
             alt={`${project.name} interface preview`}
             width={900}
             height={640}

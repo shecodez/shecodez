@@ -119,7 +119,6 @@ export const WORKS: Work[] = [
       ],
       gallery: [
         { src: '/work-startupos.png', caption: 'The Today surface — a founder’s calm morning view.' },
-        { src: '/project-designsystem.png', caption: 'The underlying token-driven component library.' },
       ],
     },
   },
@@ -199,7 +198,6 @@ export const WORKS: Work[] = [
       ],
       gallery: [
         { src: '/work-gfb.png', caption: 'The rebuilt member homepage.' },
-        { src: '/project-insurance.png', caption: 'The claims dashboard, now a self-serve surface.' },
       ],
     },
   },
@@ -259,7 +257,6 @@ export const WORKS: Work[] = [
       ],
       gallery: [
         { src: '/work-keivanlife.png', caption: 'The homepage — warm, editorial, unafraid.' },
-        { src: '/project-ai.png', caption: 'The conversational quote flow.' },
       ],
     },
   },
@@ -309,7 +306,6 @@ export const WORKS: Work[] = [
       ],
       gallery: [
         { src: '/work-aica.png', caption: 'The homepage — warm, editorial, unafraid.' },
-        { src: '/project-ai.png', caption: 'The conversational quote flow.' },
       ],
     },
   },
@@ -358,7 +354,6 @@ export const WORKS: Work[] = [
       ],
       gallery: [
         { src: '/work-beeking.png', caption: 'The storefront — playful warmth with premium restraint.' },
-        { src: '/project-designsystem.png', caption: 'The reusable product and section components.' },
       ],
     },
   },

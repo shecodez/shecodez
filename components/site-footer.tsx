@@ -56,10 +56,11 @@ export function SiteFooter() {
         <p>&copy; {new Date().getFullYear()} SHeCodez LLC. Built with intent.</p>
         <p className="font-mono tracking-wide">
           Press{' '}
-          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">B</kbd>{' '}
+          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">A</kbd>{' '}
+          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">N</kbd>{' '}
           <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">I</kbd>{' '}
-          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">G</kbd>{' '}
-          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">O</kbd>
+          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">M</kbd>{' '}
+          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">E</kbd>
         </p>
       </div>
     </footer>
