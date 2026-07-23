@@ -3,11 +3,11 @@
 import { useState } from 'react'
 import type { FAQ } from './types'
 
-interface SiteSitterFAQTabProps {
+interface PagePetFAQTabProps {
   faqs: FAQ[]
 }
 
-export function SiteSitterFAQTab({ faqs }: SiteSitterFAQTabProps) {
+export function PagePetFAQTab({ faqs }: PagePetFAQTabProps) {
   const [showAnswerIndexArr, setShowAnswerIndexArr] = useState(() =>
     faqs.map((_, index) => index === 0),
   )

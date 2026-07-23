@@ -10,7 +10,7 @@ interface FormData {
   subscribe: boolean
 }
 
-export function SiteSitterMessageForm() {
+export function PagePetMessageForm() {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
@@ -44,7 +44,7 @@ export function SiteSitterMessageForm() {
           email: formData.email,
           message: formData.message,
           subscribe: formData.subscribe,
-          subject: '👋 Site Sitter message',
+          subject: '👋 Page Pet message',
         }),
       })
 

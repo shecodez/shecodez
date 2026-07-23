@@ -3,11 +3,11 @@
 import { useState } from 'react'
 import type { ChatMessage } from './types'
 
-interface SiteSitterChatTabProps {
+interface PagePetChatTabProps {
   messages: ChatMessage[]
 }
 
-export function SiteSitterChatTab({ messages }: SiteSitterChatTabProps) {
+export function PagePetChatTab({ messages }: PagePetChatTabProps) {
   const [selectedAnswerIndexArr, setSelectedAnswerIndexArr] = useState<number[]>(() =>
     Array(messages.length).fill(-1),
   )

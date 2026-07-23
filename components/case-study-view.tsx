@@ -1,9 +1,10 @@
 'use client'
 
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { motion } from 'motion/react'
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useCallback, useEffect, useState } from 'react'
 import { Reveal } from '@/components/reveal'
 import type { Work } from '@/lib/works'
 
@@ -11,6 +12,36 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 export function CaseStudyView({ work, next }: { work: Work; next: Work }) {
   const cs = work.caseStudy!
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), [])
+
+  const showPrev = useCallback(() => {
+    setLightboxIndex((i) =>
+      i === null ? null : (i - 1 + cs.gallery.length) % cs.gallery.length,
+    )
+  }, [cs.gallery.length])
+
+  const showNext = useCallback(() => {
+    setLightboxIndex((i) => (i === null ? null : (i + 1) % cs.gallery.length))
+  }, [cs.gallery.length])
+
+  useEffect(() => {
+    if (lightboxIndex === null) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') showPrev()
+      if (e.key === 'ArrowRight') showNext()
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [lightboxIndex, closeLightbox, showPrev, showNext])
 
   return (
     <article className="mx-auto max-w-3xl px-4 pt-28 pb-24 sm:pt-32">
@@ -119,24 +150,100 @@ export function CaseStudyView({ work, next }: { work: Work; next: Work }) {
       {/* Gallery */}
       {cs.gallery.length > 0 && (
         <div className="mt-14 space-y-6">
-          {cs.gallery.map((g) => (
+          {cs.gallery.map((g, index) => (
             <Reveal key={g.src + g.caption}>
               <figure>
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-card">
+                <button
+                  type="button"
+                  onClick={() => setLightboxIndex(index)}
+                  className="group relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-card text-left transition-colors hover:border-foreground/20"
+                  aria-label={`View full size: ${g.caption}`}
+                >
                   <Image
                     src={g.src}
                     alt={g.caption}
                     fill
                     sizes="(min-width: 768px) 768px, 100vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   />
-                </div>
+                </button>
                 <figcaption className="mt-3 text-center text-sm text-muted-foreground">{g.caption}</figcaption>
               </figure>
             </Reveal>
           ))}
         </div>
       )}
+
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-[70] flex flex-col bg-foreground/90 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image preview"
+          >
+            <div className="flex shrink-0 items-center justify-between gap-4 px-4 py-4 sm:px-6">
+              <p className="min-w-0 truncate text-sm text-background/80">
+                {cs.gallery[lightboxIndex].caption}
+              </p>
+              <button
+                type="button"
+                onClick={closeLightbox}
+                aria-label="Close preview"
+                className="shrink-0 rounded-full p-2 text-background/80 transition-colors hover:bg-background/10 hover:text-background"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+
+            <div
+              className="relative min-h-0 flex-1 px-4 pb-4 sm:px-6 sm:pb-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={cs.gallery[lightboxIndex].src}
+                alt={cs.gallery[lightboxIndex].caption}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority
+              />
+
+              {cs.gallery.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={showPrev}
+                    aria-label="Previous image"
+                    className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-background/10 p-2 text-background backdrop-blur-sm transition-colors hover:bg-background/20 sm:left-4"
+                  >
+                    <ChevronLeft className="size-6" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={showNext}
+                    aria-label="Next image"
+                    className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-background/10 p-2 text-background backdrop-blur-sm transition-colors hover:bg-background/20 sm:right-4"
+                  >
+                    <ChevronRight className="size-6" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {cs.gallery.length > 1 && (
+              <p className="shrink-0 pb-4 text-center font-mono text-xs tracking-widest text-background/60 uppercase">
+                {lightboxIndex + 1} / {cs.gallery.length}
+              </p>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Next project */}
       <Reveal className="mt-16">

@@ -5,9 +5,9 @@ import { WorkList } from '@/components/work-list'
 import { WORKS } from '@/lib/works'
 
 export const metadata: Metadata = {
-  title: 'Work — shecodez',
+  title: 'Work · shecodez',
   description:
-    'Selected work by Nicole J. Nobles, Frontend Design Engineer — case studies, live websites, and open-source projects.',
+    'Selected work by Nicole J. Nobles, Frontend Design Engineer: case studies, live websites, and open-source projects.',
 }
 
 export default function WorkPage() {

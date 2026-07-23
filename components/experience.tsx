@@ -14,7 +14,7 @@ const ROLES: Role[] = [
   {
     company: 'Georgia Farm Bureau',
     role: 'Frontend Engineer',
-    period: '2018 — Present',
+    period: '2018 to Present',
     highlights: [
       'Led a React-based UI redesign of core member-facing applications.',
       'Raised accessibility scores from C to A+ and made every flow keyboard operable.',
@@ -25,7 +25,7 @@ const ROLES: Role[] = [
   {
     company: 'microNovations',
     role: 'Web Developer',
-    period: '2014 — 2018',
+    period: '2014 to 2018',
     highlights: [
       'Designed and built a responsive marketing website from scratch.',
       'Owned the visual design and interaction details end to end.',

@@ -143,3 +143,7 @@
 @utility text-balance {
   text-wrap: balance;
 }
+
+a, button {
+  @apply transition-colors duration-200 cursor-pointer;
+}

@@ -16,9 +16,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const work = getWork(slug)
-  if (!work) return { title: 'Case Study — shecodez' }
+  if (!work) return { title: 'Case Study · shecodez' }
   return {
-    title: `${work.name} — Case Study · shecodez`,
+    title: `${work.name} · Case Study · shecodez`,
     description: work.tagline,
   }
 }
@@ -41,7 +41,7 @@ export default async function CaseStudyPage({
 
   return (
     <main className="relative min-h-screen">
-      <PageNav backHref="/work" backLabel="All Work" />
+      <PageNav backHref="/works" backLabel="All Work" />
       <CaseStudyView work={work} next={next} />
       <SiteFooter />
     </main>

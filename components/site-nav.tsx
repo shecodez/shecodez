@@ -35,7 +35,7 @@ export function SiteNav() {
         }`}
       >
         <a href="#top" className="group flex items-center gap-2 pl-1">
-          <Image src="/logo.png" alt="shecodez" width={24} height={24} className="dark:invert" />
+          <Image src="/images/logo.png" alt="shecodez" width={24} height={24} className="dark:invert" />
           <span className="text-sm font-medium tracking-tight">shecodez</span>
         </a>
 

@@ -4,9 +4,9 @@ import { MessageCircle, Play, Send } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import type { FAQ } from './types'
 
-interface SiteSitterHomeTabProps {
+interface PagePetHomeTabProps {
   mostFaq: FAQ
-  sitesitterName: string
+  petName: string
   cmdInputError?: string
   onSetActiveTabIndex: (index: number) => void
   onSetActiveCommand: (cmd: string) => void
@@ -14,15 +14,15 @@ interface SiteSitterHomeTabProps {
   onOpenPortalsPong: () => void
 }
 
-export function SiteSitterHomeTab({
+export function PagePetHomeTab({
   mostFaq,
-  sitesitterName,
+  petName,
   cmdInputError,
   onSetActiveTabIndex,
   onSetActiveCommand,
   onOpenEasterEgg,
   onOpenPortalsPong,
-}: SiteSitterHomeTabProps) {
+}: PagePetHomeTabProps) {
   const [cmdInput, setCmdInput] = useState('')
 
   function emitActiveCommand() {
@@ -63,7 +63,7 @@ export function SiteSitterHomeTab({
       >
         <span className="flex items-center gap-2">
           <MessageCircle className="size-4" aria-hidden />
-          <span>Chat with {sitesitterName}</span>
+          <span>Chat with {petName}</span>
         </span>
       </button>
 
@@ -73,7 +73,7 @@ export function SiteSitterHomeTab({
         <div className="flex items-end gap-2">
           <div className="min-w-0 flex-1">
             <label htmlFor="cmd" className="sr-only">
-              Site Sitter command input
+              Page Pet command input
             </label>
             <input
               id="cmd"
@@ -92,14 +92,14 @@ export function SiteSitterHomeTab({
               aria-label="Open anime easter egg"
               className="absolute top-0 right-0 z-10 flex size-7 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-md transition-colors hover:bg-secondary/90 border border-border"
             >
-              <Play className="size-3.5 translate-x-px" aria-hidden />
+              <Play className="size-3.5 translate-x-px hover:text-primary/90" aria-hidden />
             </button>
             <button
               type="button"
               onClick={onOpenPortalsPong}
               className="rounded-bl rounded-tl-3xl rounded-tr rounded-br-3xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              Pong
+              Play
             </button>
           </div>
         </div>

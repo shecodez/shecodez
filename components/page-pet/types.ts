@@ -9,7 +9,7 @@ export interface ChatMessage {
   responses: string[]
 }
 
-export interface SiteSitterCommand {
+export interface PagePetCommand {
   label: string
   timeout?: number
 }

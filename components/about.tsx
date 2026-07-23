@@ -24,7 +24,7 @@ export function About() {
             exactly on beat.
           </p>
           <p>
-            I care most about the parts users can&apos;t name but always feel&mdash;accessibility,
+            I care most about the parts users can&apos;t name but always feel: accessibility,
             performance, and consistency. I&apos;d rather ship one component that behaves perfectly
             everywhere than ten that mostly work.
           </p>
@@ -32,7 +32,7 @@ export function About() {
             I studied abroad in <span className="text-foreground">Osaka</span>, and Japanese
             design shaped how I think about restraint: remove until only the essential remains,
             then make that essential feel effortless. It&apos;s the same instinct I bring to
-            interfaces&mdash;and why I&apos;m drawn to teams building at the intersection of design,
+            interfaces, and why I&apos;m drawn to teams building at the intersection of design,
             AI, and creator culture.
           </p>
         </Reveal>

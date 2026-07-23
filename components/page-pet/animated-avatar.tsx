@@ -15,7 +15,7 @@ const SCALED_WIDTH = SCALE * WIDTH
 const SCALED_HEIGHT = SCALE * HEIGHT
 const CYCLE_LOOP = [0, 1, 0, 2]
 
-export function SiteSitterAnimatedAvatar() {
+export function PagePetAnimatedAvatar() {
   const [spriteFailed, setSpriteFailed] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
@@ -92,7 +92,7 @@ export function SiteSitterAnimatedAvatar() {
   }, [])
 
   return (
-    <div className="sitesitter-avatar">
+    <div className="page-pet-avatar">
       {spriteFailed ? (
         <div
           className="flex size-32 items-center justify-center rounded-full border-2 border-primary bg-accent text-5xl"

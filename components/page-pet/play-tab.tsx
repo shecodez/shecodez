@@ -1,19 +1,19 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import type { SiteSitterCommand } from './types'
+import type { PagePetCommand } from './types'
 
-interface SiteSitterPlayTabProps {
-  commands: SiteSitterCommand[]
+interface PagePetPlayTabProps {
+  commands: PagePetCommand[]
   activeCommandIndex?: number
   onSetActiveCommand: (cmd: string) => void
 }
 
-export function SiteSitterPlayTab({
+export function PagePetPlayTab({
   commands,
   activeCommandIndex,
   onSetActiveCommand,
-}: SiteSitterPlayTabProps) {
+}: PagePetPlayTabProps) {
   const [isActiveCmdIndexArr, setIsActiveCmdIndexArr] = useState<boolean[]>(() =>
     Array(commands.length).fill(false),
   )

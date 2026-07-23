@@ -4,14 +4,14 @@ import { ChevronLeft, X } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { EASTER_EGG_SEQUENCE, EasterEggModal } from '@/components/easter-egg'
 import { PORTALS_PONG_SEQUENCE, PortalsPongModal } from '@/components/portals-pong'
-import { SiteSitterAnimatedAvatar } from './animated-avatar'
-import { SiteSitterChatTab } from './chat-tab'
-import { SiteSitterFAQTab } from './faq-tab'
-import { SiteSitterMessageForm } from './message-form'
-import { SiteSitterHomeTab } from './home-tab'
+import { PagePetAnimatedAvatar } from './animated-avatar'
+import { PagePetChatTab } from './chat-tab'
+import { PagePetFAQTab } from './faq-tab'
+import { PagePetMessageForm } from './message-form'
+import { PagePetHomeTab } from './home-tab'
 import type { ChatMessage, FAQ } from './types'
 
-const SITESITTER_NAME = 'SHi'
+const PAGE_PET_NAME = 'Niyan'
 const WEBSITE_NAME = 'shecodez.com'
 
 const FAQS: FAQ[] = [
@@ -21,8 +21,8 @@ const FAQS: FAQ[] = [
       "Yep! Say hi through the contact links or send a message. I'll make sure she sees it. (•̀ᴗ•́ )و",
   },
   {
-    question: 'WTF is a Site Sitter?',
-    answer: `I'm ${WEBSITE_NAME}'s website sitter ${SITESITTER_NAME}. I'm here to answer questions, play with you, and look cute. /ᐠ - ˕ -マ`,
+    question: 'WTF is a Page Pet?',
+    answer: `I'm ${WEBSITE_NAME}'s page pet, ${PAGE_PET_NAME}. I'm a kawaii widget that answers questions, plays with you, and looks cute. /ᐠ - ˕ -マ`,
   },
 ]
 
@@ -34,14 +34,14 @@ const MESSAGES: ChatMessage[] = [
   },
 ]
 
-export function SiteSitter() {
+export function PagePet() {
   const [showChatbox, setShowChatbox] = useState(false)
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const [cmdInputError, setCmdInputError] = useState<string | undefined>(undefined)
   const [easterEggOpen, setEasterEggOpen] = useState(false)
   const [portalsPongOpen, setPortalsPongOpen] = useState(false)
 
-  const tabs = [`Hi, my name is ${SITESITTER_NAME}`, 'Send Message', 'FAQs', 'Chat']
+  const tabs = [`Hi, my name is ${PAGE_PET_NAME}`, 'Send Message', 'FAQs', 'Chat']
 
   const openEasterEgg = useCallback(() => {
     setEasterEggOpen(true)
@@ -114,9 +114,9 @@ export function SiteSitter() {
 
   return (
     <>
-      <div className="sitesitter-container fixed right-4 bottom-4 z-50 sm:bottom-6">
+      <div className="page-pet-container fixed right-4 bottom-4 z-50 sm:bottom-6">
         {showChatbox && (
-          <div className="sitesitter-chatbox mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-3xl border border-border bg-card/90 p-5 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:p-6">
+          <div className="page-pet-chatbox mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-3xl border border-border bg-card/90 p-5 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:p-6">
             <header className="flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-1">
                 {activeTabIndex !== 0 && (
@@ -143,9 +143,9 @@ export function SiteSitter() {
 
             <div className="max-h-80 min-h-48 overflow-y-auto px-1 py-4">
               {activeTabIndex === 0 && (
-                <SiteSitterHomeTab
+                <PagePetHomeTab
                   mostFaq={FAQS[0]}
-                  sitesitterName={SITESITTER_NAME}
+                  petName={PAGE_PET_NAME}
                   cmdInputError={cmdInputError}
                   onSetActiveTabIndex={setActiveTabIndex}
                   onSetActiveCommand={handleSetActiveCommand}
@@ -153,13 +153,13 @@ export function SiteSitter() {
                   onOpenPortalsPong={openPortalsPong}
                 />
               )}
-              {activeTabIndex === 1 && <SiteSitterMessageForm />}
-              {activeTabIndex === 2 && <SiteSitterFAQTab faqs={FAQS} />}
-              {activeTabIndex === 3 && <SiteSitterChatTab messages={MESSAGES} />}
+              {activeTabIndex === 1 && <PagePetMessageForm />}
+              {activeTabIndex === 2 && <PagePetFAQTab faqs={FAQS} />}
+              {activeTabIndex === 3 && <PagePetChatTab messages={MESSAGES} />}
             </div>
 
             <p className="mt-3 text-center font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-              Site Sitter by{' '}
+              Page Pet Widget by{' '}
               <a
                 href="https://shecodez.com"
                 target="_blank"
@@ -172,13 +172,13 @@ export function SiteSitter() {
           </div>
         )}
 
-        <div className="sitesitter-avatar flex justify-end">
+        <div className="page-pet-avatar flex justify-end">
           <button
             type="button"
             onClick={() => setShowChatbox((open) => !open)}
-            aria-label="Toggle Site Sitter"
+            aria-label="Toggle Page Pet"
           >
-            <SiteSitterAnimatedAvatar />
+            <PagePetAnimatedAvatar />
           </button>
         </div>
       </div>

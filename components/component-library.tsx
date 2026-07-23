@@ -352,7 +352,7 @@ export function ComponentLibrary() {
         index="02"
         kicker="Design System"
         title="A living component library."
-        description="Real, interactive primitives—accessible, themeable, and consistent. Try them."
+        description="Real, interactive primitives: accessible, themeable, and consistent. Try them."
       />
       {/* TODO: make this a tab that shows Client A, Client B, Client C, and to the far right Base Components
       which is what's currently being used in the project. selecting Client a will show a user icon and a speech bubble with the text "Im looking for Apple Glassmorphism UI components" 

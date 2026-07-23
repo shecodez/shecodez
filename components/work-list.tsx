@@ -23,7 +23,7 @@ const LINK_META: Record<WorkLinkType, { label: string; Icon: typeof BookOpen }> 
 function WorkCard({ work }: { work: Work }) {
   const { label, Icon } = LINK_META[work.linkType]
   const isInternal = work.linkType === 'case-study'
-  const href = isInternal ? `/work/${work.slug}` : work.href ?? '#'
+  const href = isInternal ? `/works/${work.slug}` : work.href ?? '#'
 
   const inner = (
     <>

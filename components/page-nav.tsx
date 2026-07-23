@@ -18,7 +18,7 @@ export function PageNav({ backHref = '/', backLabel = 'Home' }: { backHref?: str
         </Link>
 
         <Link href="/" className="group flex items-center gap-2">
-          <Image src="/logo.png" alt="shecodez" width={24} height={24} className="dark:invert" />
+          <Image src="/images/logo.png" alt="shecodez" width={24} height={24} className="dark:invert" />
           <span className="text-sm font-medium tracking-tight">Nicole J. Nobles</span>
         </Link>
 

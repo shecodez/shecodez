@@ -13,7 +13,7 @@ const instrument = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'Nicole J. Nobles — Frontend Design Engineer',
+  title: 'Nicole J. Nobles · Frontend Design Engineer',
   description:
     'Nicole J. Nobles is a frontend design engineer with 7+ years of experience crafting polished, accessible, high-performance interfaces in React. Portfolio, projects, and design-system work.',
   keywords: [
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     'SHeCodez',
   ],
   openGraph: {
-    title: 'Nicole J. Nobles — Frontend Design Engineer',
+    title: 'Nicole J. Nobles · Frontend Design Engineer',
     description:
-      'Interfaces that don\u2019t just work\u2014they feel right. Portfolio of a frontend design engineer.',
+      'Interfaces that don\u2019t just work. They feel right. Portfolio of a frontend design engineer.',
     type: 'website',
   },
   icons: {

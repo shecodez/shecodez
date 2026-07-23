@@ -1,8 +1,8 @@
-interface SiteSitterChatboxProps {
+interface PagePetChatboxProps {
   showInput?: boolean
 }
 
-export function SiteSitterChatbox({ showInput }: SiteSitterChatboxProps) {
+export function PagePetChatbox({ showInput }: PagePetChatboxProps) {
   if (!showInput) return null
 
   return (

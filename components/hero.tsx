@@ -141,7 +141,7 @@ export function Hero() {
             transition={{ duration: 0.7, ease, delay: 0.15 }}
             className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-muted-foreground"
           >
-            I build interfaces that don&apos;t just work right&mdash;they <i>feel</i> right.
+            I build interfaces that don&apos;t just work right. They <i>feel</i> right.
           </motion.p>
 
           <motion.p
